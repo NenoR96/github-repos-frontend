@@ -1,0 +1,14 @@
+.repos-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.circular-progress {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+}

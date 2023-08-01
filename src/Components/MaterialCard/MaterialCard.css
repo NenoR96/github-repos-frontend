@@ -1,0 +1,12 @@
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.card-rating {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+}

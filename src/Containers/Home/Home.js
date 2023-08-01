@@ -17,24 +17,25 @@ function Home() {
 
     useEffect(() => {
         getRepositories().then((response) => {
-            let repos = response.repositories.items;
+            let { repositories, favorites } = response;
 
-            setDBRepositories(repos);
-            setRepositories(repos);
-            setFavorites(response.favorites.repoIds);
-            setLanguageFilters([...new Set(repos.map(element => element.language).filter(el => el))]);
+            setDBRepositories(repositories);
+            setRepositories(repositories);
+            setFavorites(favorites);
+            setLanguageFilters([...new Set(repositories.map(repo => repo.language).filter(lang => lang))]);
             setIsLoading(false);
         }).catch((err) => alert(err));
     }, []);
 
     const handleFavorites = (repo) => {
-        let favs = [...favorites];
+        let favs = [...dbRepositories.filter(el => el.isFavorite).map(el => el.id)];
         let exists = favs.find(el => el === repo.id);
         if (exists) favs = favs.filter(el => el !== repo.id)
         else favs.push(repo.id);
 
         let index = dbRepositories.findIndex(el => el.id === repo.id);
-        dbRepositories[index].isFavorite = true;
+        dbRepositories[index].isFavorite = !dbRepositories[index].isFavorite;
+
         saveFavorites(favs).then(() => {
             setFavorites(favs);
             if (filteredFavorites)
